@@ -47,10 +47,10 @@ function initializeServiceWorker() {
   // B1. TODO - Check if 'serviceWorker' is supported in the current browser
   if("serviceWorker" in navigator){
     // B2. TODO - Listen for the 'load' event on the window object.
-    window.addEventListener("load", ()=> {
+    window.addEventListener("load", () => {
       // B3. TODO - Register './sw.js' as a service worker (The MDN article
       //            "Using Service Workers" will help you here)
-      const registration = navigator.serviceWorker.register('./sw.js');
+      const registration = navigator.serviceWorker.register("./sw.js");
       // B4. TODO - Once the service worker has been successfully registered, console
       //            log that it was successful.
       if(registration){
@@ -108,20 +108,20 @@ async function getRecipes() {
         //            you must either use "await fetch(...)" or "fetch.then(...)". This
         //            function is using the async keyword so we recommend "await"
         let recipeURL = RECIPE_URLS[i];
-        const response = await fetch(recipeURL);
+        const Rresponse = await fetch(recipeURL);
         // A7. TODO - For each fetch response, retrieve the JSON from it using .json().
         //            NOTE: .json() is ALSO asynchronous, so you will need to use
         //            "await" again
-        const recipe = await response.json();
+        const jsonrecipe = await Rresponse.json();
         // A8. TODO - Add the new recipe to the recipes array
-        fetchRecipes.push(recipe);
-        if(recipe.length == RECIPE_URLS.length){
+        fetchRecipes.push(jsonrecipe);
+        if(fetchRecipes.length == RECIPE_URLS.length){
           // A9. TODO - Check to see if you have finished retrieving all of the recipes,
           //            if you have, then save the recipes to storage using the function
           //            we have provided. Then, pass the recipes array to the Promise's
           //            resolve() method.
-          saveRecipesToStorage(recipe);
-          resolve(recipe);
+          saveRecipesToStorage(fetchRecipes);
+          resolve(fetchRecipes);
         }
       } catch(error){
         // A10. TODO - Log any errors from catch using console.error
